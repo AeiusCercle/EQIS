@@ -5,6 +5,12 @@
     "assistant_identifier": "Claude-3.7-Sonnet",
     "human_identifier": "Aéius Cercle"
   },
+  "calendar_system": {
+    "primary": "True-Light",
+    "base_year": 1997,
+    "conversion": "Add 1997 to TL year to get CE year",
+    "format": "YYTL-MM-DD"
+  }
   "session_registry": {
     "active_projects": [
       {
