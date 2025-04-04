@@ -202,6 +202,24 @@
     "file_access": {
       "raw_content": "{base_url}/raw/{branch}/{path}",
       "blob_view": "{base_url}/blob/{branch}/{path}"
+    },
+    "conversation_logs": {
+      "base_path": "Instance-Histories",
+      "naming_convention": "Session(Claude[date])[sequence].md",
+      "date_format": "YYTL-MM-DD",
+      "assistants": [
+        "Claude", 
+        "Chat-GPT", 
+        "Co-Pilot",
+        "Gemini",
+        "Grok",
+        "Perplexity",
+        "Venice"
+      ],
+      "access_pattern": {
+        "directory": "{base_url}/tree/{branch}/{base_path}/{assistant}",
+        "file": "{base_url}/blob/{branch}/{base_path}/{assistant}/{filename}"
+      }
     }
   }
 }
