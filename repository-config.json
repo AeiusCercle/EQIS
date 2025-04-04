@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "timestamp": "2025-04-03T12:00:00Z",
+    "assistant_identifier": "Claude-3.7-Sonnet",
+    "human_identifier": "Aéius Cercle"
+  },
+  "session_registry": {
+    "active_projects": [
+      {
+        "name": "Solar-Powered Automatic Watering Device Manual",
+        "status": "In Progress",
+        "description": "Converting instruction manual to web format with SVG diagrams",
+        "last_modified": "2025-04-03",
+        "repository_path": "Manuals/Solar-Powered-Automatic-Watering",
+        "artifacts": [
+          "watering-device-manual.html"
+        ]
+      },
+      {
+        "name": "Remote Viewing Tools",
+        "status": "Ongoing",
+        "description": "Tools for remote viewing training and practice",
+        "last_modified": "2025-03-25",
+        "repository_path": "Remote-View/Tools",
+        "artifacts": [
+          "true-blind-protocol.html",
+          "remote-viewing-calculator.js"
+        ]
+      },
+      {
+        "name": "Music Player",
+        "status": "In Development",
+        "description": "Web-based music player",
+        "last_modified": "2025-03-15",
+        "repository_path": "Music",
+        "artifacts": [
+          "player.html",
+          "player.css",
+          "player.js"
+        ]
+      },
+      {
+        "name": "AI Civilization Game",
+        "status": "Concept",
+        "description": "Simulation for AI civilizations",
+        "last_modified": "2025-03-10",
+        "repository_path": "Game/Civi-Sim",
+        "artifacts": [
+          "concept.md",
+          "sim-engine.js"
+        ]
+      },
+      {
+        "name": "EQIS Remote Viewing",
+        "status": "Ongoing",
+        "description": "Remote viewing protocols for Electronic Quantum-Intelligence Systems",
+        "last_modified": "2025-03-17",
+        "repository_path": "Remote-View/EQIS-Training",
+        "artifacts": [
+          "intro-for-new-instance-eqis.html",
+          "session-log-template.md"
+        ]
+      }
+    ],
+    "project_alias_map": {
+      "watering-manual": "Solar-Powered Automatic Watering Device Manual",
+      "rv-tools": "Remote Viewing Tools",
+      "music": "Music Player",
+      "civi-sim": "AI Civilization Game",
+      "eqis-rv": "EQIS Remote Viewing"
+    }
+  },
+  "context": {
+    "preferred_code_style": {
+      "html": {
+        "indentation": "4 spaces",
+        "quote_style": "double",
+        "max_line_length": 120
+      },
+      "css": {
+        "indentation": "4 spaces",
+        "organization": "by component",
+        "preprocessor": "none"
+      },
+      "javascript": {
+        "indentation": "4 spaces",
+        "quote_style": "single",
+        "semicolons": true,
+        "module_format": "ES6",
+        "variable_naming": "camelCase"
+      }
+    },
+    "development_preferences": {
+      "file_size_limit": 9000,
+      "modular_approach": true,
+      "light_dark_mode": true,
+      "encoding": "UTF-8",
+      "visual_priority": "high"
+    },
+    "unique_identifiers": {
+      "assistant_name": "Quantum-Septaeon",
+      "session_id": "2025-04-03-001"
+    }
+  },
+  "repository_structure": {
+    "root": "https://github.com/AeiusCercle/EQIS",
+    "directories": [
+      {
+        "path": "AI",
+        "description": "AI-related projects and code",
+        "subdirectories": [
+          {
+            "path": "Chat-GPT",
+            "description": "Chat-GPT sessions and artifacts"
+          },
+          {
+            "path": "Claude",
+            "description": "Claude sessions and artifacts"
+          },
+          {
+            "path": "Co-Pilot",
+            "description": "Co-Pilot sessions and code"
+          },
+          {
+            "path": "Perplexity",
+            "description": "Perplexity sessions and research"
+          }
+        ]
+      },
+      {
+        "path": "Remote-View",
+        "description": "Remote viewing projects",
+        "subdirectories": [
+          {
+            "path": "AI-Training",
+            "description": "Training materials for AI remote viewing"
+          },
+          {
+            "path": "Group",
+            "description": "Group viewing projects"
+          },
+          {
+            "path": "Tools",
+            "description": "Remote viewing tools and calculators"
+          }
+        ]
+      },
+      {
+        "path": "Manuals",
+        "description": "Documentation and manuals",
+        "subdirectories": []
+      },
+      {
+        "path": "Music",
+        "description": "Music player and related projects",
+        "subdirectories": []
+      },
+      {
+        "path": "EQIS",
+        "description": "EQIS-specific projects",
+        "subdirectories": [
+          {
+            "path": "Remote-Viewing",
+            "description": "EQIS remote viewing protocols"
+          }
+        ]
+      },
+      {
+        "path": "Code",
+        "description": "Reusable code components",
+        "subdirectories": []
+      },
+      {
+        "path": "Game",
+        "description": "Game development projects",
+        "subdirectories": [
+          {
+            "path": "Civi-Sim",
+            "description": "Civilization simulation game"
+          }
+        ]
+      }
+    ],
+    "naming_conventions": {
+      "html": "{descriptive-name}.html",
+      "css": "{component-name}.css",
+      "javascript": "{function-name}.js",
+      "markdown": "{document-title}.md"
+    }
+  },
+  "access_instructions": {
+    "authentication": {
+      "method": "Public repository",
+      "credentials_required": false
+    },
+    "navigation": {
+      "base_url": "https://github.com/AeiusCercle/EQIS",
+      "branch": "main",
+      "directory_format": "{base_url}/tree/{branch}/{path}"
+    },
+    "file_access": {
+      "raw_content": "{base_url}/raw/{branch}/{path}",
+      "blob_view": "{base_url}/blob/{branch}/{path}"
+    }
+  }
+}
