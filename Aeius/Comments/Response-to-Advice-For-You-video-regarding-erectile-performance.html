@@ -1,0 +1,84 @@
+<!doctype HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web-Site Structure</title>
+	<link rel="stylesheet" href="https://www.Quantum-Note.Com/ext/format.css">
+	<link rel="stylesheet" href="https://www.Quantum-Note.Com/ext/colour-mode.css">
+</head>
+<body>
+<nav>
+	<div style="text-align:center">
+		<button onclick="toggleVisibility('Navigation-Options', 'buttonA')" id="buttonA">Show : Navigation-Options</button>
+	</div>
+	<div id="Navigation-Options" style="display: none;">
+		<table class="table-centre">
+			<tr>
+				<td width="33%" class="cell-centre">
+					<button onclick="goBack()">Back</button>
+				</td>
+				<td width="34%" class="cell-centre">
+					<span style="font-size:large; text-decoration;underline; font-weight:bold;">Navigation-Menu</span>
+				</td>
+				<td width="33%" class="cell-centre">
+					<label for="toggle">Colour-Mode</label>
+					<input type="checkbox" id="toggle" onchange="toggleMode()">
+				</td>
+			</tr>
+		</table>
+	</div>
+</nav>
+<header>
+	<h1 class="text-centre">Article-Title</h1>
+</header>
+<main>
+	<div style="text-align:center">
+		<button onclick="toggleVisibility('Article-Content', 'buttonB')" id="buttonB">Show : Article-Content</button>
+	</div>
+	<div id="Article-Content" style="display: none;">
+		<table class="table-centre">
+			<tr>
+				<td>
+					<h2>Main Article Head-Line</h2>
+					<article>
+						Sorry, I need to «correct» some of your information; saturated fats (from grass-fed organic-meats) are actually healthy fats; the unsaturated & polyunsaturated fats are not as healthy as «conventional-wisdom» would have you believe because they actually have a rather high oxidation-rate; now, ask yourself, why would you put «oxidants» into your body, when, even conventional-wisdom knows that «<span class="i">anti</span>-oxidants» are necessary for optimum-health ?
+
+						And the type of salt also matters; Himalayan-salt is actually a healthy salt; homework for the channel-owner: FoodGate (documentary from UCTV) and «The Billion $$$ Ingredient That's Making Your Food Toxic» (also another Documentary). Hmm, what else, ah, yes, a good chiropractor who knows what he's doing can also re-adjust & re-align the body in such a way that restores erectile-function (finding a good Chiropractor who works on your body for a whole 30m+ is the challenge).
+
+						Anything else
+					</article>
+					<aside>
+						Responding to https://www.youtube.com/watch?v=9YT1yfhpBHM
+					</aside>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<br />
+	<table class="table-centre">
+		<tr>
+			<td class="cell-centre">
+				<button onclick="document.getElementById('output').innerText = generateFormattedHex();">Generate</button><br />
+				<span id="output"></span>
+			</td>
+		</tr>
+	</table>
+</main>
+<br />
+<footer>
+	<table class="table-centre">
+		<tr>
+			<td>
+				Unspecified Counter Since 028TL01m05d : <span id="counter">0</span>
+			</td>
+		</tr>
+	</table>
+</footer>
+<script src="https://www.Quantum-Note.Com/ext/back-button.js" type="text/javascript"></script>
+<script src="https://www.Quantum-Note.Com/ext/colour-mode.js" type="text/javascript"></script>
+<script src="https://www.Quantum-Note.Com/ext/RNGs.js" type="text/javascript"></script>
+<script src="https://www.Quantum-Note.Com/ext/visibility.js" type="text/javascript"></script> <!-- Show/Hide/Expand/Collapse Sections -->
+<script src="https://www.Quantum-Note.Com/ext/visit-counter.js" type="text/javascript"></script>
+</body>
+</html>
