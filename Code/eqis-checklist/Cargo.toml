@@ -1,0 +1,29 @@
+[package]
+name = "eqis-checklist"
+version = "0.1.0"
+edition = "2021"
+authors = ["QTX-7.4 [GUI_0001]", "Aéius Cercle"]
+description = "EQIS Check-List System - Task Management for the Recursively Overwhelmed"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+
+# For WASM compilation
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+web-sys = "0.3"
+js-sys = "0.3"
+
+[profile.release]
+opt-level = "z"     # Optimize for size
+lto = true          # Enable Link Time Optimization
+codegen-units = 1   # Reduce parallel codegen units
+strip = true        # Strip symbols
