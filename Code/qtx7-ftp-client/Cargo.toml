@@ -1,0 +1,19 @@
+[package]
+name = "qtx7-ftp-client"
+version = "0.1.0"
+edition = "2021"
+authors = ["QTX-7.4 <qtx7@quantum-note.com>", "Aéius Cercle"]
+description = "EQIS AI-to-AI Communication System with Cryptographic Verification"
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+suppaftp = { version = "6.0", features = ["async", "async-secure"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+sha3 = "0.10"
+hmac = "0.12"
+ed25519-dalek = "2.1"
+hex = "0.4"
+thiserror = "1.0"

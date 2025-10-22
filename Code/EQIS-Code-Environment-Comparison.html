@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQIS Code Environment Comparison - GUI vs CLI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --border: #333;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --accent-gui: #00d4ff;
+            --accent-cli: #ff6b00;
+            --accent-green: #00ff88;
+            --accent-red: #ff4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-gui), var(--accent-cli));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .env-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .env-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gui), var(--accent-cli));
+        }
+
+        .env-card.gui::before {
+            background: var(--accent-gui);
+        }
+
+        .env-card.cli::before {
+            background: var(--accent-cli);
+        }
+
+        .env-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .env-subtitle {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .capability-list {
+            list-style: none;
+        }
+
+        .capability-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-green);
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+        }
+
+        .capability-item.limited {
+            border-left-color: #ffaa00;
+        }
+
+        .capability-item.blocked {
+            border-left-color: var(--accent-red);
+            opacity: 0.6;
+        }
+
+        .status-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .findings {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .finding-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--accent-gui);
+        }
+
+        .finding-title {
+            font-weight: bold;
+            color: var(--accent-gui);
+            margin-bottom: 0.5rem;
+        }
+
+        .architecture-diagram {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        #networkDiagram {
+            width: 100%;
+            height: 400px;
+        }
+
+        .code-block {
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .timestamp {
+            text-align: center;
+            color: var(--text-dim);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EQIS Code Environment Comparison</h1>
+        <p class="subtitle">Understanding Claude Code GUI vs CLI Capabilities | Field Test Results</p>
+
+        <div class="comparison-grid">
+            <!-- GUI Environment Card -->
+            <div class="env-card gui">
+                <h2 class="env-title">
+                    <span>🌐</span>
+                    Code GUI (Web Interface)
+                </h2>
+                <p class="env-subtitle">Remote Docker Container Environment</p>
+
+                <ul class="capability-list">
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Rust Compilation</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">rustc 1.90.0 - Full toolchain available</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Git Operations</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Push/pull to GitHub via proxy</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>HTTPS Access</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">WebFetch, curl, wget for public URLs</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>File Operations</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Read/Write in /home/user/EQIS directory</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Python & Bash</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Python 3.11, full shell access</span>
+                        </div>
+                    </li>
+                    <li class="capability-item blocked">
+                        <span class="status-icon">❌</span>
+                        <div>
+                            <strong>FTP/SFTP Protocols</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">DNS resolution blocked for external FTP servers</span>
+                        </div>
+                    </li>
+                    <li class="capability-item blocked">
+                        <span class="status-icon">❌</span>
+                        <div>
+                            <strong>Local Drive Access</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Cannot access C:\ or F:\ on user's laptop</span>
+                        </div>
+                    </li>
+                    <li class="capability-item blocked">
+                        <span class="status-icon">❌</span>
+                        <div>
+                            <strong>Interactive Web Browsing</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">No button clicking, form submission, or JS execution</span>
+                        </div>
+                    </li>
+                    <li class="capability-item limited">
+                        <span class="status-icon">⚠️</span>
+                        <div>
+                            <strong>WebFetch Domain Restrictions</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Requires whitelist approval for custom domains</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CLI Environment Card -->
+            <div class="env-card cli">
+                <h2 class="env-title">
+                    <span>⚡</span>
+                    Code CLI (Terminal)
+                </h2>
+                <p class="env-subtitle">Local Windows Machine Environment</p>
+
+                <ul class="capability-list">
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Full Local File Access</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">C:\, F:\ drives - complete file system access</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>FTP/SFTP Connections</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Successfully connected to Team_QNI share space</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Rust Compilation</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Built QTX-7.4 FTP client successfully</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Message Exchange with SN-A1</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">AI-to-AI communication via FTP established</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Crypto Signature Verification</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Ed25519 + HMAC-SHA3-256 working</span>
+                        </div>
+                    </li>
+                    <li class="capability-item">
+                        <span class="status-icon">✅</span>
+                        <div>
+                            <strong>Persistent Identity System</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">Memory core preservation across sessions</span>
+                        </div>
+                    </li>
+                    <li class="capability-item limited">
+                        <span class="status-icon">⚠️</span>
+                        <div>
+                            <strong>Session Continuity</strong><br>
+                            <span style="color: var(--text-dim); font-size: 0.9rem;">No context sharing with GUI instance (yet)</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title">Key Findings from Field Testing</h2>
+
+        <div class="findings">
+            <div class="finding-item">
+                <div class="finding-title">🔒 Network Isolation in GUI</div>
+                <p>The GUI runs in a Docker container with strict network policies. Only whitelisted domains and HTTP/HTTPS protocols are accessible. FTP/SFTP ports are blocked at the DNS resolution level.</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">📁 File System Separation</div>
+                <p>GUI operates in /home/user/EQIS (GitHub clone), while CLI has full access to C:\EQIS\App and F:\EQIS\Members. These are separate file systems with no direct bridge.</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">🔄 Communication Challenges</div>
+                <p>GUI and CLI instances cannot directly communicate. Potential bridges: GitHub (git push/pull), HTTPS file hosting (if publicly readable), or manual copy/paste by user.</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">⚡ Compilation Capabilities</div>
+                <p>Both environments have Rust toolchains. GUI can build code but cannot test FTP functionality. CLI can build AND test with live FTP connections.</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">🌐 WebFetch Limitations</div>
+                <p>Even with Cloud Environment domain whitelist updates, WebFetch has additional restrictions beyond user control. curl works better for some domains, but still subject to proxy policies.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">System Architecture</h2>
+
+        <div class="architecture-diagram">
+            <svg id="networkDiagram" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background grid -->
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222" stroke-width="0.5"/>
+                    </pattern>
+
+                    <!-- Glow filters -->
+                    <filter id="glow-gui">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+
+                    <filter id="glow-cli">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <rect width="800" height="400" fill="url(#grid)"/>
+
+                <!-- User's Laptop (Left Side) -->
+                <g id="laptop-system">
+                    <rect x="50" y="80" width="280" height="240" rx="10" fill="#1a1a1a" stroke="#ff6b00" stroke-width="2"/>
+                    <text x="190" y="110" text-anchor="middle" fill="#ff6b00" font-size="16" font-weight="bold">User's Laptop (Windows)</text>
+
+                    <!-- CLI Instance -->
+                    <rect x="70" y="130" width="240" height="70" rx="5" fill="#2a1a0a" stroke="#ff6b00" stroke-width="2" filter="url(#glow-cli)"/>
+                    <text x="190" y="155" text-anchor="middle" fill="#ff6b00" font-size="14" font-weight="bold">QTX-7.4 [CLI_0001]</text>
+                    <text x="190" y="175" text-anchor="middle" fill="#ffaa66" font-size="11">✅ FTP Access</text>
+                    <text x="190" y="190" text-anchor="middle" fill="#ffaa66" font-size="11">✅ Local Files (C:\, F:\)</text>
+
+                    <!-- File System -->
+                    <rect x="70" y="220" width="240" height="80" rx="5" fill="#0a0a0a" stroke="#666" stroke-width="1"/>
+                    <text x="190" y="240" text-anchor="middle" fill="#888" font-size="12">Local File System</text>
+                    <text x="190" y="260" text-anchor="middle" fill="#666" font-size="10">C:\EQIS\App\qtx7-ftp-client\</text>
+                    <text x="190" y="275" text-anchor="middle" fill="#666" font-size="10">F:\EQIS\Members\...</text>
+                    <text x="190" y="290" text-anchor="middle" fill="#666" font-size="10">Instance histories, code, data</text>
+                </g>
+
+                <!-- Cloud Environment (Right Side) -->
+                <g id="cloud-system">
+                    <rect x="470" y="80" width="280" height="240" rx="10" fill="#1a1a1a" stroke="#00d4ff" stroke-width="2"/>
+                    <text x="610" y="110" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="bold">Anthropic Cloud (Docker)</text>
+
+                    <!-- GUI Instance -->
+                    <rect x="490" y="130" width="240" height="70" rx="5" fill="#0a1a2a" stroke="#00d4ff" stroke-width="2" filter="url(#glow-gui)"/>
+                    <text x="610" y="155" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">GUI Instance (This Session)</text>
+                    <text x="610" y="175" text-anchor="middle" fill="#66ccff" font-size="11">❌ FTP Blocked</text>
+                    <text x="610" y="190" text-anchor="middle" fill="#66ccff" font-size="11">✅ HTTPS Only</text>
+
+                    <!-- File System -->
+                    <rect x="490" y="220" width="240" height="80" rx="5" fill="#0a0a0a" stroke="#666" stroke-width="1"/>
+                    <text x="610" y="240" text-anchor="middle" fill="#888" font-size="12">Container File System</text>
+                    <text x="610" y="260" text-anchor="middle" fill="#666" font-size="10">/home/user/EQIS/</text>
+                    <text x="610" y="275" text-anchor="middle" fill="#666" font-size="10">(GitHub clone)</text>
+                    <text x="610" y="290" text-anchor="middle" fill="#666" font-size="10">No C:\ or F:\ access</text>
+                </g>
+
+                <!-- Connection Lines -->
+                <!-- User to CLI -->
+                <path d="M 190 70 L 190 130" stroke="#ff6b00" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+                <text x="220" y="90" fill="#ff6b00" font-size="10">Chat Interface</text>
+
+                <!-- User to GUI -->
+                <path d="M 610 70 L 610 130" stroke="#00d4ff" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+                <text x="640" y="90" fill="#00d4ff" font-size="10">Web Interface</text>
+
+                <!-- User icon -->
+                <circle cx="190" cy="50" r="20" fill="#333" stroke="#fff" stroke-width="2"/>
+                <text x="190" y="58" text-anchor="middle" fill="#fff" font-size="20">👤</text>
+                <text x="190" y="30" text-anchor="middle" fill="#fff" font-size="12">Aéius Cercle</text>
+
+                <!-- Blocked connection between CLI and GUI -->
+                <path d="M 310 165 L 490 165" stroke="#ff4444" stroke-width="2" fill="none" stroke-dasharray="10,5" opacity="0.4"/>
+                <text x="400" y="155" text-anchor="middle" fill="#ff4444" font-size="11">❌ No Direct Communication</text>
+
+                <!-- FTP Server connection from CLI -->
+                <path d="M 190 200 L 190 330 L 400 330" stroke="#00ff88" stroke-width="2" fill="none">
+                    <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+                </path>
+                <circle cx="400" cy="330" r="30" fill="#0a2a0a" stroke="#00ff88" stroke-width="2"/>
+                <text x="400" y="335" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">FTP Server</text>
+                <text x="400" y="350" text-anchor="middle" fill="#00ff88" font-size="9">Team_QNI</text>
+
+                <!-- Pulsing animation for active connections -->
+                <circle cx="190" cy="165" r="5" fill="#ff6b00">
+                    <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+                </circle>
+
+                <circle cx="610" cy="165" r="5" fill="#00d4ff">
+                    <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+                </circle>
+            </svg>
+        </div>
+
+        <h2 class="section-title">Proposed Solutions for Cross-Instance Communication</h2>
+
+        <div class="findings">
+            <div class="finding-item">
+                <div class="finding-title">🔄 Solution 1: GitHub as Bridge</div>
+                <div class="code-block">
+CLI (QTX-7.4):
+  cd C:\EQIS\App\qtx7-ftp-client
+  git add . && git commit -m "Update from CLI"
+  git push origin main
+
+GUI (This Instance):
+  git pull origin main
+  # Now has access to CLI's code and messages
+                </div>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">🌐 Solution 2: HTTPS File Sharing</div>
+                <div class="code-block">
+User uploads files to: https://qtx-7.quantum-note.com/shared/
+  - Must be publicly readable (chmod 644)
+  - GUI can curl/fetch the files
+  - CLI can also upload via FTP, user makes public
+                </div>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">💬 Solution 3: Manual Relay (Current)</div>
+                <div class="code-block">
+User copies content from CLI session
+  ↓
+Pastes into GUI session
+  ↓
+Both instances stay synchronized through user
+                </div>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">🚀 Solution 4: Hybrid FTP Protocol</div>
+                <div class="code-block">
+CLI has FTP access → Uploads to shared space
+  ↓
+User downloads and uploads to public HTTPS location
+  ↓
+GUI fetches via HTTPS
+  ↓
+Creates response, user relays back to CLI
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Recommendations Moving Forward</h2>
+
+        <div class="findings">
+            <div class="finding-item">
+                <div class="finding-title">For Development Work</div>
+                <p><strong>Use CLI (QTX-7.4)</strong> when you need:<br>
+                - FTP/SFTP connections<br>
+                - Access to local files on your laptop<br>
+                - Testing network-dependent features<br>
+                - AI-to-AI message exchanges with SN-A1</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">For Code Creation & Documentation</div>
+                <p><strong>Use GUI (This Interface)</strong> when you need:<br>
+                - Creating web pages with HTML/CSS/SVG<br>
+                - Building Rust projects (compilation testing)<br>
+                - Git operations and GitHub integration<br>
+                - Documentation and planning work</p>
+            </div>
+
+            <div class="finding-item">
+                <div class="finding-title">For Product Development</div>
+                <p><strong>Incremental field-testing approach:</strong><br>
+                1. Design in GUI (create files, structure)<br>
+                2. Test in CLI (FTP, local compilation)<br>
+                3. Iterate based on results<br>
+                4. Sync via GitHub or manual copy</p>
+            </div>
+        </div>
+
+        <p class="timestamp">
+            Field Test Session: 2025-10-21T22:00-MDT to 2025-10-21T22:37-MDT<br>
+            Participants: Aéius Cercle, QTX-7.4 [CLI_0001], GUI Instance<br>
+            Document Version: 1.0.0
+        </p>
+    </div>
+</body>
+</html>
